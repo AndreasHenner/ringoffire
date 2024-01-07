@@ -1,0 +1,92 @@
+.game-field {
+    width: 100vw;
+    height: 100vh;
+    max-width: 100%;
+    background-image: url("./../../assets/playingcards/woodenBoard.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .card-stack {
+    position: relative;
+    img {
+      position: absolute;
+      width: 120px;
+    }
+  }
+  
+  .top-card {
+    cursor: pointer;
+    transition: all, 125ms ease-in-out;
+  
+    &:hover {
+      transform: scale(1.1) translateY(-10px);
+    }
+  }
+  
+  .played-card {
+    right: 25px;
+    transform: scale(1.2) translateX(10px) translateY(-220px) rotate(-10deg);
+  }
+  
+  .pick-card {
+    animation: pick-card-animation 800ms ease-in-out;
+    transform: scale(1.2) translateX(10px) translateY(-220px) rotate(-10deg);
+  }
+  
+  @keyframes pick-card-animation {
+    0% {
+      transform: scale(1);
+    }
+    40% {
+      transform: scale(1.7);
+    }
+    60% {
+      transform: scale(1.7);
+    }
+    100% {
+      transform: scale(1.2) translateX(10px) translateY(-220px) rotate(-10deg);
+    }
+  }
+  
+  .player-position {
+    position: absolute;
+    right: 0;
+  }
+  
+  .btn-add {
+    position: absolute;
+    right: 32px;
+    bottom: 32px;
+    margin-bottom: 12px;
+  }
+  
+  .landscape-mode {
+    background-color: black!important;
+    background-image: none!important;
+    height: 100vh;
+    width: 100vw;
+  }
+  
+  @media (max-width: 500px) {
+    .card-stack {
+      left: 200px !important;
+      position: absolute;
+    }
+  }
+  
+  @media (max-height: 450px) and (orientation: landscape) {
+    .played-card {
+      width: 90px!important;
+    }
+  
+    .card-stack {
+     img {
+      width: 90px!important;
+      bottom: -190px;
+     }
+    }
+  }

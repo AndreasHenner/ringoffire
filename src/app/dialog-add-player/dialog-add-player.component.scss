@@ -1,0 +1,9 @@
+.dialog-button {
+    border: none;
+
+    &:hover {
+      cursor: pointer;
+      color: rgb(86,102,190);
+      font-weight: 500;
+    }
+}

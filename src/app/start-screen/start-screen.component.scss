@@ -1,0 +1,173 @@
+.start-screen {
+    height: 100vh;
+    width: 100vw;
+    background-color: #000000;
+    max-width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+  
+    img {
+      margin-top: -130px;
+    }
+  
+    .title {
+      margin-top: -600px;
+      position: absolute;
+      color: yellow;
+      font-size: 70px;
+    }
+  
+    .card-startscreen {
+      width: 120px;
+      height: 160px;
+     
+    }
+  
+    .cards-left {
+      margin-right: -80px;
+    }
+  
+    .cards-right {
+      margin-left: -80px;
+    }
+  
+    .ace {
+      margin-top: -230px;
+      margin-left: 255px;
+      position: absolute;
+      transform: rotate(20deg);
+      box-shadow: -5px -6px 50px 10px #afa65b;
+    }
+  
+    .diamonds {
+      margin-left: 4px;
+      margin-top: -35px;
+      position: absolute;
+      transform: rotate(20deg);
+      box-shadow: 3px -8px 50px 10px #afa65b;
+    }
+  
+    .clubs {
+      margin-top: 195px;
+      margin-left: -405px;
+      position: absolute;
+      transform: rotate(20deg);
+      box-shadow: 3px -8px 50px 10px #afa65b;
+    }
+  
+    .hearts {
+      margin-top: -35px;
+      margin-left: -156px;
+      position: absolute;
+      transform: rotate(20deg);
+      box-shadow: 3px -8px 50px 10px #afa65b;
+    }
+  
+    .button {
+      padding: 16px;
+      margin-left: -25px;
+      margin-top: 90px;
+      position: absolute;
+      background-color: #afa65b;
+      border-radius: 10px;
+      border: none;
+      font-weight: 700;
+      width: 150px;
+      box-shadow: -2px -1px 25px 0px #afa65b;
+      &:hover {
+          cursor: pointer;
+          background-color: #dbd493;
+        }
+    }
+  }
+  
+  @media (max-width: 800px) {
+      .start-screen {
+        img {
+          width: 450px;
+        }
+      }
+  
+      .ace {
+        margin-top: -180px!important;
+        margin-left: 105px!important;
+        width: 70px!important;
+        height: 100px!important;
+      }
+  
+      .hearts {
+        margin-top: -40px!important;
+        margin-left: -60px!important;
+        width: 70px!important;
+        height: 100px!important;
+      }
+  
+      .diamonds {
+        margin-top: -40px!important;
+        margin-left: -45px!important;
+        width: 70px!important;
+        height: 100px!important;
+      }
+  
+      .clubs {
+        margin-top: 85px !important;
+        margin-left: -195px!important;
+        width: 70px!important;
+        height: 100px!important;
+      }
+  
+      .button {
+        padding: 10px!important;
+        margin-top: 7px!important;
+  
+      }
+  }
+  
+  @media (max-width: 450px) {
+  
+    .title {
+      font-size: 50px!important;
+    }
+  
+    .start-screen {
+      img {
+        width: 320px;
+      }
+    }
+  
+    .ace {
+      margin-top: -160px!important;
+      margin-left: 60px!important;
+      width: 50px !important;
+      height: 80px !important;
+    }
+  
+    .hearts {
+      margin-top: -50px!important;
+      margin-left: -30px!important;
+      width: 50px !important;
+      height: 80px !important;
+    }
+  
+    .diamonds {
+      margin-top: -40px!important;
+      margin-left: -45px!important;
+      width: 50px !important;
+      height: 80px !important;
+    }
+  
+    .clubs {
+      margin-top: 55px !important;
+      margin-left: -135px!important;
+      width: 50px !important;
+      height: 80px !important;
+    }
+  
+    .button {
+      padding: 10px!important;
+      width: 80px!important;
+      margin-top: -25px!important;
+    }
+  }

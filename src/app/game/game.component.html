@@ -1,0 +1,29 @@
+<app-player *ngFor="let player of game.players; let i = index;" [ngStyle]="{'top.px': 100 + (i * 110)}" 
+[playerActive] ="i == game.currentPlayer"
+[name] = "player" class="player-position">
+</app-player>
+
+<div class="game-field">
+  <!--mit ngStyle kann man direkt ein cssStyle hinzufügen. Hier Abstand rechts, da i 0-3 ist = Absatand = i*5px-->
+  <!--ngFor ist eine Forschleife, sie lässt die Karte 5x anzeigen-->
+  <div class="card-stack">
+    <!--cardstack-->
+    <img *ngFor="let c of [0, 1, 2, 3]; let i = index" [ngStyle]="{ 'right.px': i * 5 }"
+      src="assets/playingcards/card_cover.png"/>
+    <img (click)="takeCard()" class="top-card" style="right: 25px" 
+    src="assets/playingcards/card_cover.png"/>
+
+    <!--stack for played cards-->
+    <img *ngFor="let card of game.playedCard" class="played-card" src="assets/playingcards/{{ card }}.png"/>
+
+    <!--current card (animation)-->
+    <img (click)="takeCard()" *ngIf="pickCardAnimation" class="pick-card" style="right: 25px" 
+    src="assets/playingcards/{{ currentCard }}.png"/>
+  </div>
+</div>
+
+<app-game-info [card]="currentCard"></app-game-info>
+
+<button mat-fab color="primary" (click)="openDialog()" class="btn-add">
+  <mat-icon>add</mat-icon>
+</button>

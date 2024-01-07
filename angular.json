@@ -30,6 +30,7 @@
               "src/assets"
             ],
             "styles": [
+              "@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.scss"
             ],
             "scripts": []
@@ -90,10 +91,28 @@
               "src/assets"
             ],
             "styles": [
+              "@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.scss"
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "version": 2
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "ringoffire1:build:production",
+              "serveTarget": "ringoffire1:serve:production"
+            },
+            "development": {
+              "buildTarget": "ringoffire1:build:development",
+              "serveTarget": "ringoffire1:serve:development"
+            }
+          },
+          "defaultConfiguration": "production"
         }
       }
     }

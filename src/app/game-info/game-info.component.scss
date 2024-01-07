@@ -1,0 +1,38 @@
+.info-card {
+    left: 100px;
+    position: absolute;
+    bottom: 32px;
+    right: 100px;
+    background-color: rgb(255, 255, 255);
+  }
+  
+  .title {
+    margin-top: 15px;
+    margin-left: 15px;
+  }
+  
+  @media (max-width: 420px) {
+    .info-card {
+      left: 0 !important;
+    }
+  
+    .description {
+      font-size: 12px !important;
+    }
+  }
+  
+  @media (max-height: 450px) and (orientation: landscape) {
+    .info-card {
+      left: 20px;
+      position: absolute;
+      bottom: 32px;
+      right: 630px;
+      background-color: rgb(255, 255, 255);
+      height: 205px;
+    }
+  
+    .stack {
+      width: 100px!important;
+    }
+  }
+  
