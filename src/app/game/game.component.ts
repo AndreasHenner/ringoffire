@@ -10,7 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogAddPlayerComponent } from '../dialog-add-player/dialog-add-player.component';
 import { GameInfoComponent } from '../game-info/game-info.component';
-import { Firestore, addDoc, collection, doc, onSnapshot } from '@angular/fire/firestore';
+import { Firestore, addDoc, collection, doc, onSnapshot, updateDoc } from '@angular/fire/firestore';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -35,6 +35,7 @@ export class GameComponent implements OnInit {
   pickCardAnimation = false;
   currentCard: string = '';
   game = new Game();
+  gameId: string | any;
   unsubList: any;
 
    // ActivatedRoute => die URL ist mit der id verknüpft
@@ -56,13 +57,13 @@ export class GameComponent implements OnInit {
   ngOnInit(): void {
     //this.newGame();
     this.route.params.subscribe((params) => {
-      const gameId = params['id'];
-      console.log(gameId);
-      const gameDocRef = doc(collection(this.firestore, 'games'), gameId);
+      this.gameId = params['id'];
+      console.log(this.gameId);
+      const gameDocRef = doc(collection(this.firestore, 'games'), this.gameId);
       this.unsubList = onSnapshot(gameDocRef, (gameDoc) => {
         if (gameDoc.exists()) {
           const gameDate = gameDoc.data();
-          console.log('game update:', gameDoc.data());
+          console.log('game update:', gameDate);
           this.game.currentPlayer = gameDate['game']['currentPlayer'];
           this.game.playedCard = gameDate['game']['playedCard'];
           this.game.players = gameDate['game']['players'];
@@ -73,7 +74,6 @@ export class GameComponent implements OnInit {
       });
     });
   }
-
 
   newGame() {
     this.game = new Game();
@@ -98,11 +98,16 @@ export class GameComponent implements OnInit {
 
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogAddPlayerComponent);
- 
     dialogRef.afterClosed().subscribe((name: string) => {
       if (name && name.length > 0) {
         this.game.players.push(name);
+       // this.updateGame();
       }
     });
+  }
+
+  async updateGame() {
+    let docRef = doc(collection(this.firestore, 'games'), this.gameId);
+    await updateDoc(docRef, this.game.toJson());
   }
 }
