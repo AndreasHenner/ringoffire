@@ -34,7 +34,7 @@ export class GameComponent implements OnInit {
   firestore: Firestore = inject(Firestore); // Firebase mit Projekt verknüpfen
   pickCardAnimation = false;
   currentCard: string = '';
-  game: Game = new Game();
+  game = new Game();
   unsubList: any;
 
    // ActivatedRoute => die URL ist mit der id verknüpft
@@ -52,28 +52,32 @@ export class GameComponent implements OnInit {
   getSingleDoc(colId: string, docId: string) {
     return doc(collection(this.firestore, colId), docId);
   }
-
+  
   ngOnInit(): void {
-    this.newGame();
+    //this.newGame();
     this.route.params.subscribe((params) => {
-      console.log(params);
-    });
-
-    this.unsubList = onSnapshot(this.getGamesRef(), (list) => {
-      // onsnapshot => read, Daten lesen
-      list.forEach((game) => {
-        console.log('game update:', game.data());
+      const gameId = params['id'];
+      console.log(gameId);
+      const gameDocRef = doc(collection(this.firestore, 'games'), gameId);
+      this.unsubList = onSnapshot(gameDocRef, (gameDoc) => {
+        if (gameDoc.exists()) {
+          const gameDate = gameDoc.data();
+          console.log('game update:', gameDoc.data());
+          this.game.currentPlayer = gameDate['game']['currentPlayer'];
+          this.game.playedCard = gameDate['game']['playedCard'];
+          this.game.players = gameDate['game']['players'];
+          this.game.stack = gameDate['game']['stack'];
+        } else {
+          console.log('Game not found');
+        }
       });
     });
-    
   }
 
-  // addDoc() => create
+
   newGame() {
     this.game = new Game();
-    /*addDoc(collection(this.firestore, 'games'), {
-      game: this.game.toJson(),
-    });*/
+    console.log("current game:", this.game);
   }
 
   takeCard() {
@@ -83,10 +87,8 @@ export class GameComponent implements OnInit {
       if (currentCard != undefined) {
         this.currentCard = currentCard;
       }
-
       this.game.currentPlayer++;
-      this.game.currentPlayer =
-        this.game.currentPlayer % this.game.players.length; // Modulu = currentPlayer ist 3 geteilt durch 3 = 0, fängt wieder von vorne an
+      this.game.currentPlayer = this.game.currentPlayer % this.game.players.length; // Modulu = currentPlayer ist 3 geteilt durch 3 = 0, fängt wieder von vorne an
       setTimeout(() => {
         this.game.playedCard.push(this.currentCard);
         this.pickCardAnimation = false;
@@ -96,6 +98,7 @@ export class GameComponent implements OnInit {
 
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogAddPlayerComponent);
+ 
     dialogRef.afterClosed().subscribe((name: string) => {
       if (name && name.length > 0) {
         this.game.players.push(name);
