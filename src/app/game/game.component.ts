@@ -32,11 +32,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class GameComponent implements OnInit {
   firestore: Firestore = inject(Firestore); // Firebase mit Projekt verknüpfen
-  pickCardAnimation = false;
-  currentCard: string = '';
   game = new Game();
-  
-  
   gameId: string | any;
   unsubList: any;
   gameDoc: any;
@@ -69,6 +65,8 @@ export class GameComponent implements OnInit {
           this.game.playedCard = gameDate['playedCard'];
           this.game.players = gameDate['players'];
           this.game.stack = gameDate['stack'];   
+          this.game.pickCardAnimation = gameDate['pickCardAnimation'];
+          this.game.currentCard = gameDate['currentCard'];
         } else {
           console.log('Game not found');
         }
@@ -81,20 +79,21 @@ export class GameComponent implements OnInit {
   }
 
   takeCard() {
-    if (!this.pickCardAnimation && this.game.players.length > 0) {
-      this.pickCardAnimation = true;
+    if (!this.game.pickCardAnimation && this.game.players.length > 0) {
+      this.game.pickCardAnimation = true;
       let currentCard = this.game.stack.pop(); // pop() nimmt immer das letzte Element des Arrays und löscht dieses auch
       if (currentCard != undefined) {
-        this.currentCard = currentCard;
+        this.game.currentCard = currentCard;
       }
       this.game.currentPlayer++;
-      this.updateGame();  
       this.game.currentPlayer = this.game.currentPlayer % this.game.players.length; // Modulu = currentPlayer ist 3 geteilt durch 3 = 0, fängt wieder von vorne an
+      this.updateGame();  
       setTimeout(() => {
-        this.game.playedCard.push(this.currentCard);
-        this.pickCardAnimation = false;
+        this.game.playedCard.push(this.game.currentCard);
+        this.game.pickCardAnimation = false;
+        this.updateGame();
       }, 800);
-      this.updateGame();
+      
     }
   }
 
