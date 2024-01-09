@@ -16,12 +16,10 @@ export class StartScreenComponent {
 
   constructor(private router: Router) {}
 
+   //start game
   newGame() {
-    //start game
     let game = new Game();
-    addDoc(collection(this.firestore, 'games'), {
-      game: game.toJson(),
-    }).then((gameInfo: any) => {
+    addDoc(collection(this.firestore, 'games'), game.toJson(),).then((gameInfo: any) => {
       this.router.navigateByUrl('/game/' + gameInfo.id);
     });
   }

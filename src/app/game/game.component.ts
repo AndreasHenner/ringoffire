@@ -35,11 +35,15 @@ export class GameComponent implements OnInit {
   pickCardAnimation = false;
   currentCard: string = '';
   game = new Game();
+  
+  
   gameId: string | any;
   unsubList: any;
+  gameDoc: any;
 
    // ActivatedRoute => die URL ist mit der id verknüpft
   constructor(private route: ActivatedRoute, public dialog: MatDialog) {
+   
   }
 
   ngonDestroy() {
@@ -55,19 +59,16 @@ export class GameComponent implements OnInit {
   }
   
   ngOnInit(): void {
-    //this.newGame();
     this.route.params.subscribe((params) => {
       this.gameId = params['id'];
-      console.log(this.gameId);
       const gameDocRef = doc(collection(this.firestore, 'games'), this.gameId);
       this.unsubList = onSnapshot(gameDocRef, (gameDoc) => {
         if (gameDoc.exists()) {
           const gameDate = gameDoc.data();
-          console.log('game update:', gameDate);
-          this.game.currentPlayer = gameDate['game']['currentPlayer'];
-          this.game.playedCard = gameDate['game']['playedCard'];
-          this.game.players = gameDate['game']['players'];
-          this.game.stack = gameDate['game']['stack'];
+          this.game.currentPlayer = gameDate['currentPlayer'];
+          this.game.playedCard = gameDate['playedCard'];
+          this.game.players = gameDate['players'];
+          this.game.stack = gameDate['stack'];   
         } else {
           console.log('Game not found');
         }
@@ -77,7 +78,6 @@ export class GameComponent implements OnInit {
 
   newGame() {
     this.game = new Game();
-    console.log("current game:", this.game);
   }
 
   takeCard() {
@@ -88,11 +88,13 @@ export class GameComponent implements OnInit {
         this.currentCard = currentCard;
       }
       this.game.currentPlayer++;
+      this.updateGame();  
       this.game.currentPlayer = this.game.currentPlayer % this.game.players.length; // Modulu = currentPlayer ist 3 geteilt durch 3 = 0, fängt wieder von vorne an
       setTimeout(() => {
         this.game.playedCard.push(this.currentCard);
         this.pickCardAnimation = false;
       }, 800);
+      this.updateGame();
     }
   }
 
@@ -101,13 +103,14 @@ export class GameComponent implements OnInit {
     dialogRef.afterClosed().subscribe((name: string) => {
       if (name && name.length > 0) {
         this.game.players.push(name);
-       // this.updateGame();
+        this.updateGame();
+       
       }
     });
   }
 
-  async updateGame() {
+  updateGame() {
     let docRef = doc(collection(this.firestore, 'games'), this.gameId);
-    await updateDoc(docRef, this.game.toJson());
+    updateDoc(docRef, this.game.toJson());
   }
 }
