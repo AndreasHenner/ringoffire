@@ -10,6 +10,7 @@ import { Component, Input} from '@angular/core';
 export class PlayerComponent {
   @Input() name: string | undefined;
   @Input() playerActive: boolean = false;
+  @Input() image: string | undefined;
  
 
 }

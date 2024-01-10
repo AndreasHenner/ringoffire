@@ -9,6 +9,13 @@
     justify-content: center;
     align-items: center;
   }
+
+  .game-over img {
+    width: 100vw;
+    height: 100vh;
+    z-index: 100;
+    position: absolute;
+  }
   
   .card-stack {
     position: relative;
@@ -50,6 +57,15 @@
     100% {
       transform: scale(1.2) translateX(10px) translateY(-220px) rotate(-10deg);
     }
+  }
+
+  app-player {
+    cursor: pointer;
+
+    &:hover {
+      filter: brightness(1.15);
+    }
+    
   }
   
   .player-position {

@@ -1,23 +1,43 @@
-<app-player *ngFor="let player of game.players; let i = index;" [ngStyle]="{'top.px': 100 + (i * 110)}" 
-[playerActive] ="i == game.currentPlayer"
-[name] = "player" class="player-position">
+<app-player (click)="editPlayer(i)" *ngFor="let player of game.players; let i = index" [ngStyle]="{ 'top.px': 20 + i * 60 }"
+  [playerActive]="i == game.currentPlayer" [image]="game.playerImages[i]" [name]="player" class="player-position">
 </app-player>
 
-<div class="game-field">
+<div class="game-over" *ngIf="gameOver">
+  <img src="./../../assets/profileImages/gameover.jpg" />
+</div>
+
+<div *ngIf="!gameOver" class="game-field">
   <!--mit ngStyle kann man direkt ein cssStyle hinzufügen. Hier Abstand rechts, da i 0-3 ist = Absatand = i*5px-->
   <!--ngFor ist eine Forschleife, sie lässt die Karte 5x anzeigen-->
   <div class="card-stack">
     <!--cardstack-->
-    <img *ngFor="let c of [0, 1, 2, 3]; let i = index" [ngStyle]="{ 'right.px': i * 5 }"
-      src="assets/playingcards/card_cover.png"/>
-    <img (click)="takeCard()" class="top-card" style="right: 25px" src="assets/playingcards/card_cover.png"/>
+    <img
+      *ngFor="let c of [0, 1, 2, 3]; let i = index"
+      [ngStyle]="{ 'right.px': i * 5 }"
+      src="assets/playingcards/card_cover.png"
+    />
+    <img
+      (click)="takeCard()"
+      class="top-card"
+      style="right: 25px"
+      src="assets/playingcards/card_cover.png"
+    />
 
     <!--stack for played cards-->
-    <img *ngFor="let card of game.playedCard" class="played-card" src="assets/playingcards/{{ card }}.png"/>
+    <img
+      *ngFor="let card of game.playedCard"
+      class="played-card"
+      src="assets/playingcards/{{ card }}.png"
+    />
 
     <!--current card (animation)-->
-    <img (click)="takeCard()" *ngIf="game.pickCardAnimation" class="pick-card" style="right: 25px" 
-    src="assets/playingcards/{{ game.currentCard }}.png"/>
+    <img
+      (click)="takeCard()"
+      *ngIf="game.pickCardAnimation"
+      class="pick-card"
+      style="right: 25px"
+      src="assets/playingcards/{{ game.currentCard }}.png"
+    />
   </div>
 </div>
 
