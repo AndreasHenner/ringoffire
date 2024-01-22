@@ -22,12 +22,16 @@
     img {
       position: absolute;
       width: 120px;
+      border-radius: 10px;
+      border: 1px solid #5050b1;
     }
   }
   
   .top-card {
     cursor: pointer;
     transition: all, 125ms ease-in-out;
+    border-radius: 10px;
+    border: 1px solid #5050b1;
   
     &:hover {
       transform: scale(1.1) translateY(-10px);
@@ -37,6 +41,7 @@
   .played-card {
     right: 25px;
     transform: scale(1.2) translateX(10px) translateY(-220px) rotate(-10deg);
+    border: none!important;
   }
   
   .pick-card {
@@ -106,3 +111,4 @@
      }
     }
   }
+

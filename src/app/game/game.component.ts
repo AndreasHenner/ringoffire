@@ -10,7 +10,14 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogAddPlayerComponent } from '../dialog-add-player/dialog-add-player.component';
 import { GameInfoComponent } from '../game-info/game-info.component';
-import {Firestore, addDoc, collection, doc, onSnapshot, updateDoc, } from '@angular/fire/firestore';
+import {
+  Firestore,
+  addDoc,
+  collection,
+  doc,
+  onSnapshot,
+  updateDoc,
+} from '@angular/fire/firestore';
 import { ActivatedRoute } from '@angular/router';
 import { EditPlayerComponent } from '../edit-player/edit-player.component';
 
@@ -91,7 +98,7 @@ export class GameComponent implements OnInit {
       }
       this.game.currentPlayer++;
       this.game.currentPlayer =
-        this.game.currentPlayer % this.game.players.length; // Modulu = currentPlayer ist 3 geteilt durch 3 = 0, fängt wieder von vorne an
+      this.game.currentPlayer % this.game.players.length; // Modulu = currentPlayer ist 3 geteilt durch 3 = 0, fängt wieder von vorne an
       this.updateGame();
       setTimeout(() => {
         this.game.playedCard.push(this.game.currentCard);
@@ -126,7 +133,7 @@ export class GameComponent implements OnInit {
           this.game.playerImages.splice(i, 1);
         } else {
           this.game.playerImages[i] = change;
-        } 
+        }
         this.updateGame();
       }
     });
