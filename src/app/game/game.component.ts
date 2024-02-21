@@ -10,14 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogAddPlayerComponent } from '../dialog-add-player/dialog-add-player.component';
 import { GameInfoComponent } from '../game-info/game-info.component';
-import {
-  Firestore,
-  addDoc,
-  collection,
-  doc,
-  onSnapshot,
-  updateDoc,
-} from '@angular/fire/firestore';
+import { Firestore, addDoc, collection, doc,onSnapshot, updateDoc} from '@angular/fire/firestore';
 import { ActivatedRoute } from '@angular/router';
 import { EditPlayerComponent } from '../edit-player/edit-player.component';
 
